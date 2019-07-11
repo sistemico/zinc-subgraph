@@ -1,21 +1,16 @@
-import {
-  ClaimSet as ClaimSetEvent,
-  ClaimRemoved as ClaimRemovedEvent,
-  OwnershipRenounced as OwnershipRenouncedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
-} from "../generated/Contract/Contract"
+import * as schema from "../../generated/schema"
 
 import {
-  ClaimSet,
-  ClaimRemoved,
-  OwnershipRenounced,
-  OwnershipTransferred
-} from "../generated/schema"
+  ClaimRemoved as ClaimRemovedEvent,
+  ClaimSet as ClaimSetEvent,
+  OwnershipRenounced as OwnershipRenouncedEvent,
+  OwnershipTransferred as OwnershipTransferredEvent
+} from "../../generated/Registry/Registry"
 
 export function handleClaimSet(event: ClaimSetEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
 
-  let entity = new ClaimSet(id)
+  let entity = new schema.ClaimSet(id)
   entity.subject = event.params.subject
   entity.issuer = event.params.issuer
   entity.claimId = event.params.id
@@ -25,6 +20,7 @@ export function handleClaimSet(event: ClaimSetEvent): void {
 
   entity.block = event.block.number
   entity.transaction = event.transaction.hash
+  entity.timestamp = event.block.timestamp
 
   entity.save()
 }
@@ -32,7 +28,7 @@ export function handleClaimSet(event: ClaimSetEvent): void {
 export function handleClaimRemoved(event: ClaimRemovedEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
 
-  let entity = new ClaimRemoved(id)
+  let entity = new schema.ClaimRemoved(id)
   entity.subject = event.params.subject
   entity.issuer = event.params.issuer
   entity.claimId = event.params.id
@@ -41,6 +37,7 @@ export function handleClaimRemoved(event: ClaimRemovedEvent): void {
 
   entity.block = event.block.number
   entity.transaction = event.transaction.hash
+  entity.timestamp = event.block.timestamp
 
   entity.save()
 }
@@ -48,11 +45,12 @@ export function handleClaimRemoved(event: ClaimRemovedEvent): void {
 export function handleOwnershipRenounced(event: OwnershipRenouncedEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
 
-  let entity = new OwnershipRenounced(id)
+  let entity = new schema.OwnershipRenounced(id)
   entity.previousOwner = event.params.previousOwner
 
   entity.block = event.block.number
   entity.transaction = event.transaction.hash
+  entity.timestamp = event.block.timestamp
 
   entity.save()
 }
@@ -60,12 +58,13 @@ export function handleOwnershipRenounced(event: OwnershipRenouncedEvent): void {
 export function handleOwnershipTransferred(event: OwnershipTransferredEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
 
-  let entity = new OwnershipTransferred(id)
+  let entity = new schema.OwnershipTransferred(id)
   entity.previousOwner = event.params.previousOwner
   entity.newOwner = event.params.newOwner
 
   entity.block = event.block.number
   entity.transaction = event.transaction.hash
+  entity.timestamp = event.block.timestamp
 
   entity.save()
 }

@@ -1,3 +1,7 @@
+#
+# From Registry contract
+#
+
 type ClaimSet @entity {
   id: ID!
   subject: Bytes! # address
@@ -8,6 +12,7 @@ type ClaimSet @entity {
   updatedAt: BigInt! # uint256
   block: BigInt!
   transaction: Bytes!
+  timestamp: BigInt!
 }
 
 type ClaimRemoved @entity {
@@ -17,6 +22,9 @@ type ClaimRemoved @entity {
   claimId: Bytes! # bytes32
   key: Bytes! # bytes32
   removedAt: BigInt! # uint256
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
 }
 
 type OwnershipRenounced @entity {
@@ -24,6 +32,7 @@ type OwnershipRenounced @entity {
   previousOwner: Bytes! # address
   block: BigInt!
   transaction: Bytes!
+  timestamp: BigInt!
 }
 
 type OwnershipTransferred @entity {
@@ -32,4 +41,104 @@ type OwnershipTransferred @entity {
   newOwner: Bytes! # address
   block: BigInt!
   transaction: Bytes!
+  timestamp: BigInt!
+}
+
+#
+# From Accessor contract
+#
+
+type UserIdentityCreated @entity {
+  id: ID!
+  userAddress: Bytes! # address
+  identityContractAddress: Bytes! # address
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type AccessorAdded @entity {
+  id: ID!
+  identityContractAddress: Bytes! # address
+  keyAddress: Bytes! # address
+  purpose: BigInt! # uint256
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type AccessorRemoved @entity {
+  id: ID!
+  identityContractAddress: Bytes! # address
+  keyAddress: Bytes! # address
+  purpose: BigInt! # uint256
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+#
+# From Identity contract
+#
+
+type ExecutionFailed @entity {
+  id: ID!
+  executionId: BigInt! # uint256
+  to: Bytes! # address
+  value: BigInt! # uint256
+  data: Bytes! # bytes
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type KeyAdded @entity {
+  id: ID!
+  key: Bytes! # bytes32
+  purpose: BigInt! # uint256
+  keyType: BigInt! # uint256
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type KeyRemoved @entity {
+  id: ID!
+  key: Bytes! # bytes32
+  purpose: BigInt! # uint256
+  keyType: BigInt! # uint256
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type ExecutionRequested @entity {
+  id: ID!
+  executionId: BigInt! # uint256
+  to: Bytes! # address
+  value: BigInt! # uint256
+  data: Bytes! # bytes
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type Executed @entity {
+  id: ID!
+  executionId: BigInt! # uint256
+  to: Bytes! # address
+  value: BigInt! # uint256
+  data: Bytes! # bytes
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
+}
+
+type Approved @entity {
+  id: ID!
+  executionId: BigInt! # uint256
+  approved: Boolean! # bool
+  block: BigInt!
+  transaction: Bytes!
+  timestamp: BigInt!
 }
