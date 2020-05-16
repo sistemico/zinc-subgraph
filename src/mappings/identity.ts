@@ -7,7 +7,7 @@ import {
   ExecutionRequested as ExecutionRequestedEvent,
   Executed as ExecutedEvent,
   Approved as ApprovedEvent
-} from "../../generated/Accessor/templates/UserIdentity/Identity"
+} from "../../generated/templates/UserIdentity/Identity"
 
 export function handleExecutionFailed(event: ExecutionFailedEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()

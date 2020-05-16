@@ -6,7 +6,7 @@ import {
   UserIdentityCreated as UserIdentityCreatedEvent
 } from "../../generated/Accessor/ZincAccessor"
 
-import { UserIdentity } from "../../generated/Accessor/templates"
+import { UserIdentity } from "../../generated/templates"
 
 export function handleUserIdentityCreated(event: UserIdentityCreatedEvent): void {
   let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()

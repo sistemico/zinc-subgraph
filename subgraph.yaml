@@ -1,6 +1,6 @@
 description: Zinc is a blockchain based hiring platform
 repository: https://github.com/sistemico/zinc-subgraph
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -12,7 +12,7 @@ dataSources:
       abi: Registry
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/registry.ts
       entities:
@@ -40,7 +40,7 @@ dataSources:
       abi: ZincAccessor
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.3
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/accessor.ts
       entities:
@@ -57,37 +57,37 @@ dataSources:
           handler: handleAccessorAdded
         - event: AccessorRemoved(indexed address,indexed address,indexed uint256)
           handler: handleAccessorRemoved
-    templates:
-      - name: UserIdentity
-        kind: ethereum/contract
-        network: mainnet
-        source:
-          abi: Identity
-        mapping:
-          kind: ethereum/events
-          apiVersion: 0.0.3
-          language: wasm/assemblyscript
-          file: ./src/mappings/identity.ts
-          entities:
-            - ExecutionFailed
-            - KeyAdded
-            - KeyRemoved
-            - ExecutionRequested
-            - Executed
-            - Approved
-          abis:
-            - name: Identity
-              file: ./abis/Identity.json
-          eventHandlers:
-            - event: ExecutionRequested(indexed uint256,indexed address,indexed uint256,bytes)
-              handler: handleExecutionRequested
-            - event: Executed(indexed uint256,indexed address,indexed uint256,bytes)
-              handler: handleExecuted
-            - event: ExecutionFailed(indexed uint256,indexed address,indexed uint256,bytes)
-              handler: handleExecutionFailed
-            - event: KeyAdded(indexed bytes32,indexed uint256,indexed uint256)
-              handler: handleKeyAdded
-            - event: KeyRemoved(indexed bytes32,indexed uint256,indexed uint256)
-              handler: handleKeyRemoved
-            - event: Approved(indexed uint256,bool)
-              handler: handleApproved
+templates:
+  - name: UserIdentity
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Identity
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappings/identity.ts
+      entities:
+        - ExecutionFailed
+        - KeyAdded
+        - KeyRemoved
+        - ExecutionRequested
+        - Executed
+        - Approved
+      abis:
+        - name: Identity
+          file: ./abis/Identity.json
+      eventHandlers:
+        - event: ExecutionRequested(indexed uint256,indexed address,indexed uint256,bytes)
+          handler: handleExecutionRequested
+        - event: Executed(indexed uint256,indexed address,indexed uint256,bytes)
+          handler: handleExecuted
+        - event: ExecutionFailed(indexed uint256,indexed address,indexed uint256,bytes)
+          handler: handleExecutionFailed
+        - event: KeyAdded(indexed bytes32,indexed uint256,indexed uint256)
+          handler: handleKeyAdded
+        - event: KeyRemoved(indexed bytes32,indexed uint256,indexed uint256)
+          handler: handleKeyRemoved
+        - event: Approved(indexed uint256,bool)
+          handler: handleApproved
