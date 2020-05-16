@@ -10,6 +10,7 @@ dataSources:
     source:
       address: "0x0d416ffd6964fd122ee13d9a229fd3bb08b2deec"
       abi: Registry
+      startBlock: 6269534
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -38,6 +39,7 @@ dataSources:
     source:
       address: "0xa2073fab02cd808dd35b144360b0d2b1fa2325b5"
       abi: ZincAccessor
+      startBlock: 6269484
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
